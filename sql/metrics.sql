@@ -47,10 +47,10 @@ FROM (
     GROUP BY movie_id ORDER BY views DESC, movie_id LIMIT 10
 )
 UNION ALL
-SELECT 'retention', concat('D', toString(number)),
-       if(target + toInt32(number) > toDate(now('UTC')), NULL,
+SELECT 'retention', concat('D', toString(days.number)),
+       if(target + toInt32(days.number) > toDate(now('UTC')), NULL,
           returns.users / nullIf(cohort.users, 0))
-FROM numbers(8) CROSS JOIN cohort LEFT JOIN returns ON returns.lag = toInt64(number)
+FROM numbers(8) AS days CROSS JOIN cohort LEFT JOIN returns ON returns.lag = toInt64(days.number)
 UNION ALL
 SELECT 'cohort_size', '', toFloat64(users) FROM cohort
 FORMAT JSONEachRow
