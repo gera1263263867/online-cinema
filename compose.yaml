@@ -1,7 +1,6 @@
 name: online-cinema
 x-app: &app
   build: .
-  image: online-cinema-app:local
   init: true
 x-kafka: &kafka
   image: apache/kafka:3.9.1
