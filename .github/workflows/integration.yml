@@ -1,0 +1,16 @@
+name: Integration
+on: [push, pull_request]
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run integration tests
+        run: docker compose run --build --rm test
+      - name: Print diagnostics on failure
+        if: failure()
+        run: docker compose logs --no-color --tail=150
+      - name: Stop services
+        if: always()
+        run: docker compose --profile test down -v

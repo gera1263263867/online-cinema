@@ -1,0 +1,7 @@
+fastapi==0.115.12
+uvicorn==0.34.2
+requests==2.32.4
+confluent-kafka==2.10.0
+fastavro==1.11.1
+psycopg[binary]==3.2.9
+boto3==1.38.46
