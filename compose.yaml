@@ -158,7 +158,7 @@ services:
     volumes:
       - minio-data:/data
     healthcheck:
-      test: [CMD, curl, -fsS, http://localhost:9000/minio/health/live]
+      test: [CMD-SHELL, 'MC_HOST_local=http://$${MINIO_ROOT_USER}:$${MINIO_ROOT_PASSWORD}@127.0.0.1:9000 /usr/bin/mc ready local']
       interval: 5s
       timeout: 5s
       retries: 20
